@@ -1,0 +1,586 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: #07101d;
+  color: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #07101d;
+}
+body {
+  min-height: 100dvh;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.hidden {
+  display: none !important;
+}
+
+.builder-app {
+  width: min(100%, 1240px);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+}
+
+.builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.eyebrow {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  opacity: 0.5;
+}
+
+h1 {
+  margin: 2px 0 0;
+  font-size: clamp(24px, 5vw, 40px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.header-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.ghost-btn,
+.test-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 11px;
+  padding: 10px 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ghost-btn {
+  color: white;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.test-btn {
+  border: 0;
+  background: #84cc16;
+  color: #07100b;
+}
+
+.builder-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 11px;
+  height: calc(100dvh - 88px);
+}
+
+.wall-shell {
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 21px;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#builderCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.wall-info {
+  position: absolute;
+  left: 50%;
+  bottom: 11px;
+  transform: translateX(-50%);
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(5, 10, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.editor-panel {
+  min-height: 0;
+  overflow-y: auto;
+  border-radius: 19px;
+  padding: 13px;
+  background: rgba(15, 25, 40, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel-section {
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.panel-section:first-child {
+  padding-top: 0;
+}
+
+.panel-title {
+  margin-bottom: 9px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  opacity: 0.6;
+}
+
+.spacing-top {
+  margin-top: 17px;
+}
+
+.field-label {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0 6px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  opacity: 0.58;
+}
+
+.text-input,
+.select-input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  outline: 0;
+  border-radius: 9px;
+  padding: 10px 11px;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+}
+
+.hold-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.hold-add {
+  min-height: 66px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.hold-preview {
+  display: block;
+  width: 31px;
+  height: 22px;
+  margin: 0 auto 6px;
+  background: #ef4444;
+
+  clip-path: polygon(5% 52%, 19% 12%, 49% 0%, 88% 18%, 100% 58%, 75% 100%, 21% 91%);
+}
+
+.hold-preview.sloper {
+  width: 36px;
+  height: 20px;
+  background: #8b5cf6;
+  clip-path: ellipse(50% 44% at 50% 52%);
+}
+
+.hold-preview.foot {
+  width: 34px;
+  height: 13px;
+  background: #22c55e;
+
+  clip-path: polygon(0 72%, 18% 5%, 88% 14%, 100% 70%, 62% 100%, 12% 94%);
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+.color-picker {
+  width: 100%;
+  height: 37px;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+}
+
+.capacity-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.capacity-box > div {
+  padding: 9px 8px;
+  border-radius: 9px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.capacity-box span {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  opacity: 0.45;
+}
+
+.capacity-box strong {
+  font-size: 16px;
+}
+
+.capacity-note {
+  margin: 6px 0 0;
+  font-size: 9px;
+  line-height: 1.4;
+  opacity: 0.44;
+}
+
+.grip-side-pad {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 5px;
+  align-items: stretch;
+  margin-top: 8px;
+}
+
+.grip-side-btn {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 5px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.grip-side-btn.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.side-top {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.side-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.grip-side-core {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  opacity: 0.72;
+}
+
+.side-right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.side-bottom {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.assignment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.assign-btn {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 4px;
+  color: white;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.assign-btn.active {
+  background: #2563eb;
+  border-color: #60a5fa;
+}
+
+.top-btn {
+  width: 100%;
+  margin-top: 7px;
+  border: 0;
+  border-radius: 9px;
+  padding: 9px;
+  color: #07100b;
+  background: #84cc16;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.delete-btn {
+  width: 100%;
+  margin-top: 14px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 9px;
+  padding: 9px;
+  background: rgba(239, 68, 68, 0.09);
+  color: #fca5a5;
+  font-weight: 900;
+}
+
+.route-status {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.route-status > div {
+  padding: 8px 3px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.route-status span {
+  display: block;
+  font-size: 7px;
+  font-weight: 900;
+  opacity: 0.48;
+}
+
+.route-status strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 8px;
+}
+
+.route-status .top-status {
+  grid-column: 1 / -1;
+}
+
+.builder-message {
+  margin-top: 11px;
+  padding: 9px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 10px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.builder-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+.builder-message.success {
+  background: rgba(132, 204, 22, 0.1);
+  color: #bef264;
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: auto;
+  }
+  .builder-app {
+    padding-inline: 6px;
+  }
+  .builder-header {
+    gap: 7px;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+  .ghost-btn,
+  .test-btn {
+    padding: 8px 9px;
+    font-size: 9px;
+  }
+  .builder-layout {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .wall-shell {
+    height: 70dvh;
+    min-height: 520px;
+  }
+  .editor-panel {
+    overflow: visible;
+  }
+}
+
+/* =====================================================
+   07C — ROUTE LIBRARY
+===================================================== */
+
+.save-route-btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  padding: 10px 13px;
+  background: rgba(255, 255, 255, 0.075);
+  color: #fff;
+  font-weight: 900;
+}
+
+.library-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.library-heading .panel-title {
+  margin-bottom: 0;
+}
+
+.new-route-btn {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.055);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.route-library {
+  display: grid;
+  gap: 7px;
+}
+
+.library-empty {
+  padding: 11px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 9px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.route-card {
+  padding: 10px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.route-card.current {
+  border-color: rgba(132, 204, 22, 0.52);
+  box-shadow: inset 0 0 0 1px rgba(132, 204, 22, 0.08);
+}
+
+.route-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.route-card-name {
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.route-card-count {
+  flex-shrink: 0;
+  font-size: 8px;
+  opacity: 0.42;
+}
+
+.route-card-best {
+  margin-top: 4px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.route-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.route-card-actions button {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  padding: 7px 5px;
+  background: rgba(255, 255, 255, 0.055);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.route-card-actions .library-play {
+  background: rgba(132, 204, 22, 0.13);
+  border-color: rgba(132, 204, 22, 0.25);
+  color: #d9f99d;
+}
+
+.route-card-actions .library-delete {
+  padding-inline: 8px;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.07);
+  border-color: rgba(239, 68, 68, 0.18);
+}
+
+@media (max-width: 760px) {
+  .save-route-btn {
+    padding: 8px 9px;
+    font-size: 9px;
+  }
+}

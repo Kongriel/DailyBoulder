@@ -1,0 +1,372 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: #08111f;
+  color: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #08111f;
+}
+body {
+  min-height: 100dvh;
+  overflow: hidden;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.hidden {
+  display: none !important;
+}
+
+.app {
+  width: min(100%, 940px);
+  height: 100dvh;
+  margin: 0 auto;
+  padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 54px;
+}
+
+.brand {
+  flex-shrink: 0;
+}
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  opacity: 0.58;
+  font-weight: 900;
+}
+h1 {
+  margin: 2px 0 0;
+  font-size: clamp(21px, 4.5vw, 36px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stat {
+  min-width: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.stat small {
+  font-size: 8px;
+  letter-spacing: 0.11em;
+  opacity: 0.5;
+  font-weight: 900;
+}
+.stat strong {
+  margin-top: 1px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.timer-stat {
+  min-width: 74px;
+}
+
+#resetBtn,
+.edit-route-btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: 900;
+}
+.edit-route-btn {
+  white-space: nowrap;
+}
+
+.game-shell {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.35);
+  background: #111827;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.hint {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 520px;
+  padding: 8px 13px;
+  text-align: center;
+  border-radius: 999px;
+  background: rgba(5, 10, 18, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(5, 11, 20, 0.68);
+  backdrop-filter: blur(9px);
+  transition: opacity 0.2s ease;
+}
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+  display: grid !important;
+}
+
+.overlay-card {
+  width: min(100%, 390px);
+  padding: 28px 26px;
+  border-radius: 22px;
+  text-align: center;
+  background: rgba(15, 25, 40, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+.overlay-kicker {
+  color: #84cc16;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+.overlay-card h2 {
+  margin: 7px 0 4px;
+  font-size: 33px;
+  letter-spacing: -0.045em;
+}
+.overlay-card > p {
+  margin: 0 0 20px;
+  opacity: 0.6;
+}
+
+.start-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 20px 0;
+}
+.start-info > div {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.start-info span {
+  font-size: 21px;
+}
+.start-info > div > div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.start-info small {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  opacity: 0.48;
+  font-weight: 900;
+}
+.start-info strong {
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  border: 0;
+  padding: 13px 17px;
+  border-radius: 13px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+.primary-btn {
+  color: #07100b;
+  background: #84cc16;
+  box-shadow: 0 10px 30px rgba(132, 204, 22, 0.18);
+}
+.secondary-btn {
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.builder-link {
+  display: block;
+  margin-top: 9px;
+  padding: 10px 13px;
+  border-radius: 11px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.tiny-text {
+  margin: 12px 0 0 !important;
+  font-size: 10px;
+  opacity: 0.4 !important;
+}
+
+.result-icon {
+  font-size: 43px;
+  margin-bottom: 4px;
+}
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 20px 0 14px;
+}
+.result-grid div {
+  padding: 14px 5px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.055);
+}
+.result-grid small {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  opacity: 0.5;
+  font-weight: 900;
+}
+.result-grid strong {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.new-best {
+  margin: 8px 0 15px;
+  padding: 9px;
+  border-radius: 10px;
+  background: rgba(132, 204, 22, 0.13);
+  color: #bef264;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.result-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0 18px;
+  font-size: 12px;
+  opacity: 0.72;
+}
+.result-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (max-width: 650px) {
+  .app {
+    padding-inline: 6px;
+    gap: 6px;
+  }
+  .hud {
+    gap: 5px;
+    align-items: flex-start;
+  }
+  .eyebrow {
+    font-size: 7px;
+  }
+  h1 {
+    font-size: 19px;
+  }
+  .stats {
+    gap: 3px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .stat {
+    min-width: 40px;
+    padding: 5px;
+  }
+  .timer-stat {
+    min-width: 64px;
+  }
+  .stat strong {
+    font-size: 10px;
+  }
+  #resetBtn,
+  .edit-route-btn {
+    padding: 7px;
+    font-size: 8px;
+  }
+  .game-shell {
+    border-radius: 16px;
+  }
+  .overlay {
+    padding: 14px;
+  }
+  .overlay-card {
+    padding: 24px 19px;
+    border-radius: 19px;
+  }
+  .overlay-card h2 {
+    font-size: 29px;
+  }
+}

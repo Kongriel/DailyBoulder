@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="da">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>
+        Daily Climb — Route Builder
+    </title>
+
+    <link rel="stylesheet" href="builder.css" />
+
+</head>
+
+<body>
+
+
+    <main class="builder-app">
+
+        <header class="builder-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    DAILY CLIMB
+                </div>
+
+                <h1>
+                    ROUTE BUILDER
+                </h1>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <a href="index.html" class="ghost-btn">
+                    ← SPIL
+                </a>
+
+
+                <a href="routes.html" class="ghost-btn">
+                    BANER
+                </a>
+
+
+                <button id="saveRouteBtn" class="save-route-btn" type="button">
+                    💾 GEM BANE
+                </button>
+
+
+                <button id="testBtn" class="test-btn" type="button">
+                    ▶ TEST BANE
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="builder-layout">
+
+            <div class="wall-shell">
+
+                <canvas id="builderCanvas"></canvas>
+
+                <div class="wall-info">
+                    Træk greb · drej · vælg gribbare sider · TEST
+                </div>
+
+            </div>
+
+
+            <aside class="editor-panel">
+
+
+                <div class="panel-section">
+
+                    <label class="field-label" for="routeName">
+                        BANENAVN
+                    </label>
+
+                    <input id="routeName" class="text-input" type="text" maxlength="40" value="Min Boulder" />
+
+                </div>
+
+
+                <div class="panel-section">
+
+                    <div class="panel-title">
+                        TILFØJ GREB
+                    </div>
+
+
+                    <div class="hold-buttons">
+
+                        <button class="hold-add" data-type="jug" type="button">
+                            <span class="hold-preview jug"></span>
+                            JUG
+                        </button>
+
+
+                        <button class="hold-add" data-type="sloper" type="button">
+                            <span class="hold-preview sloper"></span>
+                            SLOPER
+                        </button>
+
+
+                        <button class="hold-add" data-type="foot" type="button">
+                            <span class="hold-preview foot"></span>
+                            FOOT
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="selectedEditor" class="panel-section selected-editor hidden">
+
+                    <div class="panel-title">
+                        VALGT GREB
+                    </div>
+
+
+                    <label class="field-label" for="holdType">
+                        TYPE
+                    </label>
+
+
+                    <select id="holdType" class="select-input">
+
+                        <option value="jug">
+                            Jug
+                        </option>
+
+                        <option value="sloper">
+                            Sloper
+                        </option>
+
+                        <option value="foot">
+                            Foothold
+                        </option>
+
+                        <option value="top">
+                            Top
+                        </option>
+
+                    </select>
+
+
+                    <label class="field-label" for="holdShape">
+                        FORM
+                    </label>
+
+
+                    <select id="holdShape" class="select-input">
+
+                        <option value="rock">
+                            Rock
+                        </option>
+
+                        <option value="edge">
+                            Edge / crimp
+                        </option>
+
+                        <option value="wedge">
+                            Wedge
+                        </option>
+
+                        <option value="blob">
+                            Blob
+                        </option>
+
+                        <option value="sloper">
+                            Round sloper
+                        </option>
+
+                    </select>
+
+
+                    <label class="field-label" for="angleSlider">
+                        VINKEL
+
+                        <span id="angleValue">
+                            0°
+                        </span>
+                    </label>
+
+
+                    <input id="angleSlider" type="range" min="-180" max="180" step="1" value="0" />
+
+
+                    <label class="field-label" for="sizeSlider">
+                        STØRRELSE
+
+                        <span id="sizeValue">
+                            20
+                        </span>
+                    </label>
+
+
+                    <input id="sizeSlider" type="range" min="12" max="34" step="1" value="20" />
+
+
+                    <div class="capacity-box">
+
+                        <div>
+
+                            <span>
+                                HÆNDER
+                            </span>
+
+                            <strong id="capacityHands">
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                FØDDER
+                            </span>
+
+                            <strong id="capacityFeet">
+                                1
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="capacity-note">
+                        Små greb kan kun tage én hånd/fod.
+                        I spillet auto-swapper et 1-persons greb,
+                        når den anden hånd/fod kommer ind.
+                    </p>
+
+
+                    <div class="panel-title spacing-top">
+                        GRIBBARE SIDER
+                    </div>
+
+
+                    <div class="grip-side-pad">
+
+                        <button class="grip-side-btn side-top" data-grip-side="top" type="button">
+                            TOP
+                        </button>
+
+
+                        <button class="grip-side-btn side-left" data-grip-side="left" type="button">
+                            VENSTRE
+                        </button>
+
+
+                        <div class="grip-side-core">
+                            HOLD
+                        </div>
+
+
+                        <button class="grip-side-btn side-right" data-grip-side="right" type="button">
+                            HØJRE
+                        </button>
+
+
+                        <button class="grip-side-btn side-bottom" data-grip-side="bottom" type="button">
+                            BUND
+                        </button>
+
+                    </div>
+
+
+                    <p class="capacity-note">
+                        Aktiv = ru/chalket kant.
+                        Inaktiv = mørk/glat.
+                        Siderne roterer sammen med grebet.
+                    </p>
+
+
+                    <label class="field-label" for="colorPicker">
+                        FARVE
+                    </label>
+
+
+                    <input id="colorPicker" class="color-picker" type="color" value="#ef4444" />
+
+
+                    <div class="panel-title spacing-top">
+                        START / FINISH
+                    </div>
+
+
+                    <div class="assignment-grid">
+
+                        <button class="assign-btn" data-assignment="leftHand" type="button">
+                            LH
+                        </button>
+
+                        <button class="assign-btn" data-assignment="rightHand" type="button">
+                            RH
+                        </button>
+
+                        <button class="assign-btn" data-assignment="leftFoot" type="button">
+                            LF
+                        </button>
+
+                        <button class="assign-btn" data-assignment="rightFoot" type="button">
+                            RF
+                        </button>
+
+                    </div>
+
+
+                    <button id="topBtn" class="top-btn" type="button">
+                        ⭐ MARKÉR SOM TOP
+                    </button>
+
+
+                    <button id="deleteBtn" class="delete-btn" type="button">
+                        SLET GREB
+                    </button>
+
+                </div>
+
+
+                <div class="panel-section">
+
+                    <div class="library-heading">
+
+                        <div class="panel-title">
+                            MIT BIBLIOTEK
+                        </div>
+
+                        <button id="newRouteBtn" class="new-route-btn" type="button">
+                            + NY BANE
+                        </button>
+
+                    </div>
+
+
+                    <div id="routeLibrary" class="route-library"></div>
+
+                </div>
+
+
+                <div class="panel-section">
+
+                    <div class="panel-title">
+                        STATUS
+                    </div>
+
+
+                    <div class="route-status">
+
+                        <div>
+                            <span>LH</span>
+                            <strong id="statusLH">—</strong>
+                        </div>
+
+                        <div>
+                            <span>RH</span>
+                            <strong id="statusRH">—</strong>
+                        </div>
+
+                        <div>
+                            <span>LF</span>
+                            <strong id="statusLF">—</strong>
+                        </div>
+
+                        <div>
+                            <span>RF</span>
+                            <strong id="statusRF">—</strong>
+                        </div>
+
+                        <div class="top-status">
+                            <span>TOP</span>
+                            <strong id="statusTop">—</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div id="builderMessage" class="builder-message">
+                    Vælg et greb for at redigere det.
+                </div>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase-config.js"></script>
+
+    <script src="online.js"></script>
+
+    <script src="builder.js"></script>
+
+    <script src="builder-online.js"></script>
+
+
+</body>
+
+</html>
