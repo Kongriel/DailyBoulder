@@ -1,0 +1,197 @@
+<!doctype html>
+
+<html lang="da">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>
+        Daily Boulder — Baneoversigt
+    </title>
+
+    <link rel="stylesheet" href="routes.css" />
+
+</head>
+
+
+<body>
+
+    <div class="routes-background"></div>
+
+
+    <main class="routes-app">
+
+        <!-- ===============================================
+         HEADER
+    ================================================ -->
+
+        <header class="routes-header">
+
+            <a class="routes-brand" href="index.html">
+
+                <span>
+                    DAILY BOULDER
+                </span>
+
+                <strong>
+                    Baneoversigt
+                </strong>
+
+            </a>
+
+
+            <nav class="header-actions">
+
+                <a class="header-link" href="index.html">
+                    HJEM
+                </a>
+
+
+                <a class="header-build" href="builder.html">
+                    + BYG BANE
+                </a>
+
+            </nav>
+
+        </header>
+
+
+
+        <!-- ===============================================
+         INTRO
+    ================================================ -->
+
+        <section class="routes-intro">
+
+            <div>
+
+                <div class="page-kicker">
+                    COMMUNITY BOULDERS
+                </div>
+
+                <h1>
+                    Baneoversigt
+                </h1>
+
+                <p>
+                    Find en boulder. Slå highscoren.
+                </p>
+
+            </div>
+
+
+            <div class="route-count" id="routeCount">
+                —
+            </div>
+
+        </section>
+
+
+
+        <!-- ===============================================
+         SEARCH
+    ================================================ -->
+
+        <section class="routes-toolbar">
+
+            <label class="search-box">
+
+                <span class="search-icon">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+
+                        <path d="m20 20-4-4"></path>
+                    </svg>
+
+                </span>
+
+
+                <input id="routeSearch" type="search" placeholder="Søg efter bane eller bygger..." autocomplete="off" />
+
+            </label>
+
+
+
+            <div class="filters" id="filters">
+
+                <button class="filter active" data-filter="all" type="button">
+                    ALLE
+                </button>
+
+
+                <button class="filter" data-filter="daily" type="button">
+                    DAGENS
+                </button>
+
+
+                <button class="filter" data-filter="mine" type="button">
+                    MINE
+                </button>
+
+
+                <button class="filter" data-filter="new" type="button">
+                    NYESTE
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===============================================
+         STATUS
+    ================================================ -->
+
+        <div id="setupNotice" class="setup-notice hidden"></div>
+
+
+
+        <!-- ===============================================
+         ROUTES
+    ================================================ -->
+
+        <section id="routeGrid" class="route-grid"></section>
+
+
+
+        <div id="emptyState" class="empty-state hidden">
+
+            <div class="empty-symbol">
+                △
+            </div>
+
+            <strong>
+                Ingen baner fundet
+            </strong>
+
+            <span>
+                Prøv et andet filter eller byg din egen.
+            </span>
+
+
+            <a href="builder.html">
+                BYG EN BANE
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase-config.js"></script>
+
+    <script src="online.js"></script>
+
+    <script src="routes.js"></script>
+
+</body>
+
+</html>

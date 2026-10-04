@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Daily Boulder — Byg bane</title>
+
+    <link rel="stylesheet" href="builder.css" />
+</head>
+
+<body>
+
+    <div class="builder-background"></div>
+
+    <main class="builder-app">
+
+        <header class="builder-header">
+
+            <a href="index.html" class="builder-brand" aria-label="Til forsiden">
+                <span>
+                    DAILY BOULDER
+                </span>
+
+                <strong>
+                    Byg bane
+                </strong>
+            </a>
+
+
+            <div class="header-actions">
+
+                <a href="index.html" class="header-btn">
+                    HJEM
+                </a>
+
+
+                <a href="routes.html" class="header-btn">
+                    BANEOVERSIGT
+                </a>
+
+
+                <button id="saveRouteBtn" class="save-route-btn" type="button">
+                    GEM
+                </button>
+
+
+                <button id="testBtn" class="test-btn" type="button">
+                    TEST →
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <section class="builder-layout">
+
+            <!-- =================================================
+           WALL
+      ================================================== -->
+
+            <div class="wall-shell">
+
+                <canvas id="builderCanvas" aria-label="Route builder"></canvas>
+
+
+                <div class="wall-top-label">
+
+                    <span class="wall-dot"></span>
+
+                    BYG DIN BOULDER
+
+                </div>
+
+
+                <div class="wall-info">
+
+                    Træk greb · Shift/Cmd + klik vælger flere · Delete sletter · træk den lime prik for at rotere
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+           EDITOR
+      ================================================== -->
+
+            <aside class="editor-panel">
+
+
+                <!-- ===============================================
+             NAME
+        ================================================ -->
+
+                <section class="panel-section route-name-section">
+
+                    <label class="field-label" for="routeName">
+                        BANENS NAVN
+                    </label>
+
+
+                    <input id="routeName" class="text-input route-name-input" type="text" maxlength="40"
+                        value="Min Boulder" />
+
+                </section>
+
+
+
+                <!-- ===============================================
+             ADD HOLDS
+        ================================================ -->
+
+                <section class="panel-section">
+
+                    <div class="panel-title">
+                        TILFØJ GREB
+                    </div>
+
+
+                    <div class="hold-buttons">
+
+                        <button class="hold-add" data-type="jug" type="button">
+
+                            <span class="hold-preview jug"></span>
+
+                            <span>
+                                JUG
+                            </span>
+
+                        </button>
+
+
+                        <button class="hold-add" data-type="sloper" type="button">
+
+                            <span class="hold-preview sloper"></span>
+
+                            <span>
+                                SLOPER
+                            </span>
+
+                        </button>
+
+
+                        <button class="hold-add" data-type="foot" type="button">
+
+                            <span class="hold-preview foot"></span>
+
+                            <span>
+                                FOD
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ===============================================
+             MULTI SELECT INFO
+        ================================================ -->
+
+                <div id="selectionInfo" class="selection-info hidden"></div>
+
+
+
+                <!-- ===============================================
+             SELECTED HOLD
+        ================================================ -->
+
+                <section id="selectedEditor" class="panel-section selected-editor hidden">
+
+                    <div class="selected-head">
+
+                        <div>
+
+                            <div class="panel-title">
+                                VALGT GREB
+                            </div>
+
+                            <div class="selected-help">
+                                Træk grebet direkte på væggen.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <label class="field-label" for="holdType">
+                        TYPE
+                    </label>
+
+
+                    <select id="holdType" class="select-input">
+
+                        <option value="jug">
+                            Jug
+                        </option>
+
+                        <option value="sloper">
+                            Sloper
+                        </option>
+
+                        <option value="foot">
+                            Foothold
+                        </option>
+
+                        <option value="top">
+                            Top
+                        </option>
+
+                    </select>
+
+
+
+                    <!-- ANGLE -->
+
+                    <div class="slider-field">
+
+                        <div class="slider-label">
+
+                            <label class="field-label" for="angleSlider">
+                                VINKEL
+                            </label>
+
+                            <span id="angleValue">
+                                0°
+                            </span>
+
+                        </div>
+
+
+                        <input id="angleSlider" type="range" min="-180" max="180" step="1" value="0" />
+
+                    </div>
+
+
+
+                    <!-- SIZE -->
+
+                    <div class="slider-field size-field">
+
+                        <div class="slider-label">
+
+                            <label class="field-label" for="sizeSlider">
+                                STØRRELSE
+                            </label>
+
+                            <span id="sizeValue">
+                                20
+                            </span>
+
+                        </div>
+
+
+                        <input id="sizeSlider" type="range" min="12" max="34" step="1" value="20" />
+
+
+                        <div class="capacity-box size-capacity">
+
+                            <div>
+
+                                <span>
+                                    HÆNDER
+                                </span>
+
+                                <strong id="capacityHands">
+                                    1
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    FØDDER
+                                </span>
+
+                                <strong id="capacityFeet">
+                                    1
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- START / TOP -->
+
+                    <div class="start-block">
+
+                        <div class="panel-title">
+                            START / FINISH
+                        </div>
+
+
+                        <div class="assignment-grid">
+
+                            <button class="assign-btn" data-assignment="leftHand" type="button">
+                                LH
+                            </button>
+
+
+                            <button class="assign-btn" data-assignment="rightHand" type="button">
+                                RH
+                            </button>
+
+
+                            <button class="assign-btn" data-assignment="leftFoot" type="button">
+                                LF
+                            </button>
+
+
+                            <button class="assign-btn" data-assignment="rightFoot" type="button">
+                                RF
+                            </button>
+
+                        </div>
+
+
+                        <button id="topBtn" class="top-btn" type="button">
+                            MARKÉR SOM TOP
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =============================================
+               ADVANCED
+          ============================================== -->
+
+                    <details class="advanced-editor">
+
+                        <summary>
+                            AVANCERET
+                        </summary>
+
+
+                        <div class="advanced-content">
+
+
+                            <label class="field-label" for="holdShape">
+                                FORM
+                            </label>
+
+
+                            <select id="holdShape" class="select-input">
+
+                                <option value="rock">
+                                    Rock
+                                </option>
+
+                                <option value="edge">
+                                    Edge / crimp
+                                </option>
+
+                                <option value="wedge">
+                                    Wedge
+                                </option>
+
+                                <option value="blob">
+                                    Blob
+                                </option>
+
+                                <option value="sloper">
+                                    Round sloper
+                                </option>
+
+                            </select>
+
+
+
+                            <label class="field-label" for="colorPicker">
+                                FARVE
+                            </label>
+
+
+                            <input id="colorPicker" class="color-picker" type="color" value="#ef4444" />
+
+
+
+                            <div class="advanced-title">
+                                GRIBBARE SIDER
+                            </div>
+
+
+                            <div class="grip-side-pad">
+
+                                <button class="grip-side-btn side-top" data-grip-side="top" type="button">
+                                    TOP
+                                </button>
+
+
+                                <button class="grip-side-btn side-left" data-grip-side="left" type="button">
+                                    VENSTRE
+                                </button>
+
+
+                                <div class="grip-side-core">
+                                    GREB
+                                </div>
+
+
+                                <button class="grip-side-btn side-right" data-grip-side="right" type="button">
+                                    HØJRE
+                                </button>
+
+
+                                <button class="grip-side-btn side-bottom" data-grip-side="bottom" type="button">
+                                    BUND
+                                </button>
+
+                            </div>
+
+
+
+                            <div class="capacity-box">
+
+                                <div>
+
+                                    <span>
+                                        HÆNDER
+                                    </span>
+
+                                    <strong id="capacityHands">
+                                        1
+                                    </strong>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span>
+                                        FØDDER
+                                    </span>
+
+                                    <strong id="capacityFeet">
+                                        1
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <p class="capacity-note">
+                                Størrelse og form bestemmer hvor mange hænder eller fødder grebet kan tage.
+                            </p>
+
+                        </div>
+
+                    </details>
+
+
+
+                    <!-- DELETE -->
+
+                    <button id="deleteBtn" class="delete-btn" type="button">
+                        🗑 SLET GREB
+                    </button>
+
+                </section>
+
+
+
+                <!-- ===============================================
+             MESSAGE
+        ================================================ -->
+
+                <div id="builderMessage" class="builder-message">
+                    Tilføj et greb eller vælg et på væggen.
+                </div>
+
+
+
+                <!-- ===============================================
+             LIBRARY
+        ================================================ -->
+
+                <section class="panel-section">
+
+                    <div class="library-heading">
+
+                        <div class="panel-title">
+                            MINE BANER
+                        </div>
+
+
+                        <button id="newRouteBtn" class="new-route-btn" type="button">
+                            + NY BANE
+                        </button>
+
+                    </div>
+
+
+                    <div id="routeLibrary" class="route-library"></div>
+
+                </section>
+
+
+
+                <!-- ===============================================
+             STATUS
+        ================================================ -->
+
+                <section class="panel-section status-section">
+
+                    <div class="panel-title">
+                        STATUS
+                    </div>
+
+
+                    <div class="route-status">
+
+                        <div>
+
+                            <span>
+                                LH
+                            </span>
+
+                            <strong id="statusLH">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                RH
+                            </span>
+
+                            <strong id="statusRH">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                LF
+                            </span>
+
+                            <strong id="statusLF">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                RF
+                            </span>
+
+                            <strong id="statusRF">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="top-status">
+
+                            <span>
+                                TOP
+                            </span>
+
+                            <strong id="statusTop">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase-config.js"></script>
+
+    <script src="online.js"></script>
+
+    <script src="builder.js"></script>
+
+    <script src="builder-online.js"></script>
+
+</body>
+
+</html>

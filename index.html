@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="da">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Daily Boulder</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+
+<body class="home-mode">
+
+  <!-- ===================================================
+       HOME
+  ==================================================== -->
+
+  <section class="home-screen" id="homeScreen">
+
+    <div class="home-shade"></div>
+
+
+    <div class="home-content">
+
+      <div class="home-brand">
+
+        <div class="home-kicker">
+          DAILY BOULDER
+        </div>
+
+        <h1>
+          Daily
+          <br />
+          Boulder
+        </h1>
+
+      </div>
+
+
+      <nav class="home-menu" aria-label="Hovedmenu">
+
+        <!-- DAGENS BANE -->
+
+        <button class="menu-card menu-card-primary" id="dailyMenuBtn" type="button">
+
+          <span class="menu-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4 17.5 8.6 7.2c.5-1.1 2-1.5 3-.7l2.5 2 2.6-1.5c1.2-.7 2.6.1 2.7 1.5L20 17c.1 1.1-.8 2-1.9 2H5.7c-1.4 0-2.3-1.4-1.7-2.5Z" />
+
+              <circle cx="12" cy="12" r="1.5" />
+            </svg>
+
+          </span>
+
+
+          <span class="menu-copy">
+
+            <strong>
+              Dagens bane
+            </strong>
+
+            <small>
+              Spil dagens udvalgte problem
+            </small>
+
+          </span>
+
+
+          <span class="menu-arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <!-- BANEOVERSIGT -->
+
+        <a class="menu-card" href="routes.html">
+
+          <span class="menu-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+
+          </span>
+
+
+          <span class="menu-copy">
+
+            <strong>
+              Baneoversigt
+            </strong>
+
+            <small>
+              Se og spil community-baner
+            </small>
+
+          </span>
+
+
+          <span class="menu-arrow">
+            →
+          </span>
+
+        </a>
+
+
+        <!-- BYG SELV -->
+
+        <a class="menu-card" href="builder.html">
+
+          <span class="menu-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m4 20 4.5-1 10.7-10.7-3.5-3.5L5 15.5 4 20Z" />
+
+              <path d="m14.7 5.8 3.5 3.5" />
+            </svg>
+
+          </span>
+
+
+          <span class="menu-copy">
+
+            <strong>
+              Byg selv baner
+            </strong>
+
+            <small>
+              Lav og del dine egne problemer
+            </small>
+
+          </span>
+
+
+          <span class="menu-arrow">
+            →
+          </span>
+
+        </a>
+
+
+        <!-- HOW TO -->
+
+        <button class="menu-card" id="howToBtn" type="button">
+
+          <span class="menu-icon">
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+
+              <path d="M9.7 9a2.5 2.5 0 1 1 4.1 1.9c-1 .8-1.8 1.2-1.8 2.6" />
+
+              <circle cx="12" cy="17" r=".7" />
+            </svg>
+
+          </span>
+
+
+          <span class="menu-copy">
+
+            <strong>
+              How to
+            </strong>
+
+            <small>
+              Lær spillet på 30 sekunder
+            </small>
+
+          </span>
+
+
+          <span class="menu-arrow">
+            →
+          </span>
+
+        </button>
+
+      </nav>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ===================================================
+       SELVE SPILLET
+  ==================================================== -->
+
+  <main class="app game-view" id="gameView">
+
+    <header class="hud">
+
+      <a class="brand home-return-link" href="index.html" aria-label="Tilbage til forsiden">
+
+        <div class="eyebrow" id="dailyLabel">
+          DAGENS BANE
+        </div>
+
+        <h2>
+          DAILY BOULDER
+        </h2>
+
+      </a>
+
+
+      <div class="stats">
+
+        <button id="editRouteBtn" class="edit-route-btn hidden" type="button">
+          ← REDIGER BANE
+        </button>
+
+
+        <div class="stat">
+
+          <small>
+            MOVES
+          </small>
+
+          <strong id="moves">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+          <small>
+            FALLS
+          </small>
+
+          <strong id="falls">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat timer-stat">
+
+          <small>
+            TIME
+          </small>
+
+          <strong id="timer">
+            00:00.0
+          </strong>
+
+        </div>
+
+
+        <button id="resetBtn" type="button">
+          RESET
+        </button>
+
+        <a class="exit-game-btn" href="index.html">
+          EXIT
+        </a>
+
+      </div>
+
+    </header>
+
+
+
+    <section class="game-shell">
+
+      <canvas id="game" aria-label="Daily Boulder"></canvas>
+
+
+      <div class="hint" id="hint">
+        Klar til dagens climb.
+      </div>
+
+
+
+      <!-- ===============================================
+           RESULTAT
+      ================================================ -->
+
+      <div class="overlay hidden" id="resultOverlay">
+
+        <div class="overlay-card result-card">
+
+          <div class="overlay-kicker">
+            TOPPED
+          </div>
+
+
+          <h2 id="resultTitle">
+            Daily Boulder
+          </h2>
+
+
+          <div class="result-grid">
+
+            <div>
+
+              <small>
+                MOVES
+              </small>
+
+              <strong id="resultMoves">
+                0
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <small>
+                FALLS
+              </small>
+
+              <strong id="resultFalls">
+                0
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <small>
+                TIME
+              </small>
+
+              <strong id="resultTime">
+                00:00.0
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="new-best hidden" id="newBest">
+            NY PERSONLIG REKORD
+          </div>
+
+
+
+          <!-- ONLINE SCORE -->
+
+          <div class="online-score-flow hidden" id="onlineScoreFlow">
+
+            <!-- NAVN -->
+
+            <div id="scoreNameStep">
+
+              <div class="section-line"></div>
+
+
+              <div class="score-kicker">
+                LEADERBOARD
+              </div>
+
+
+              <h3>
+                Hvad hedder du?
+              </h3>
+
+
+              <p>
+                Dit navn bliver vist på leaderboardet.
+              </p>
+
+
+              <input id="scoreNameInput" class="score-name-input" type="text" maxlength="24" autocomplete="nickname"
+                placeholder="Dit navn" />
+
+
+              <div id="scoreNameError" class="score-error hidden"></div>
+
+
+              <button id="saveOnlineScoreBtn" class="primary-btn" type="button">
+                GEM SCORE
+              </button>
+
+            </div>
+
+
+
+            <!-- LEADERBOARD -->
+
+            <div id="leaderboardStep" class="hidden">
+
+              <div class="section-line"></div>
+
+
+              <div class="leaderboard-head">
+
+                <div>
+
+                  <div class="score-kicker">
+                    GLOBAL
+                  </div>
+
+                  <h3>
+                    Leaderboard
+                  </h3>
+
+                </div>
+
+
+                <div id="leaderboardPosition" class="leaderboard-position"></div>
+
+              </div>
+
+
+              <div id="leaderboardList" class="leaderboard-list"></div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="result-meta">
+
+            <span>
+              STREAK
+              <strong id="resultStreak">
+                0
+              </strong>
+            </span>
+
+
+            <span>
+              BEST
+              <strong id="resultBest">
+                —
+              </strong>
+            </span>
+
+          </div>
+
+
+          <div class="result-buttons" id="resultButtons">
+
+            <button class="primary-btn" id="replayBtn" type="button">
+              PRØV IGEN
+            </button>
+
+
+            <button class="secondary-btn" id="shareBtn" type="button">
+              DEL RESULTAT
+            </button>
+
+
+            <a class="secondary-btn result-route-link" href="routes.html">
+              BANEOVERSIGT
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- ===================================================
+       DAGENS BANE MODAL
+  ==================================================== -->
+
+  <div class="overlay pregame-overlay hidden" id="startOverlay">
+
+    <div class="overlay-card daily-card">
+
+      <button class="modal-close" id="dailyModalClose" type="button" aria-label="Luk">
+        ×
+      </button>
+
+
+      <div class="overlay-kicker">
+        DAGENS BANE
+      </div>
+
+
+      <h2 id="startDailyTitle">
+        Daily Boulder
+      </h2>
+
+
+      <p class="route-author" id="routeName">
+        —
+      </p>
+
+
+
+      <div class="daily-score-grid">
+
+        <div class="daily-score-card">
+
+          <small>
+            DAGENS BEDSTE
+          </small>
+
+          <strong id="startGlobalBest">
+            Ingen score endnu
+          </strong>
+
+        </div>
+
+
+        <div class="daily-score-card">
+
+          <small>
+            DIN PERSONLIGE BEDSTE
+          </small>
+
+          <strong id="startBest">
+            Ikke klaret endnu
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- game.js forventer stadig dette id -->
+
+      <strong id="startStreak" class="visually-hidden">
+        0 dage
+      </strong>
+
+
+      <button class="primary-btn daily-start-btn" id="playBtn" type="button">
+        START
+      </button>
+
+
+      <p class="daily-rule">
+        Færrest moves vinder · falls er sekundært · tid er tie-breaker
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       HOW TO
+  ==================================================== -->
+
+  <div class="overlay howto-overlay hidden" id="howToOverlay">
+
+    <div class="overlay-card howto-card">
+
+      <button class="modal-close" id="howToClose" type="button" aria-label="Luk">
+        ×
+      </button>
+
+
+      <div class="overlay-kicker">
+        HOW TO
+      </div>
+
+
+      <h2>
+        Sådan spiller du
+      </h2>
+
+
+      <div class="howto-list">
+
+        <div class="howto-item">
+
+          <span>
+            01
+          </span>
+
+          <div>
+
+            <strong>
+              Flyt arme og ben
+            </strong>
+
+            <p>
+              Træk hænder og fødder fra greb til greb.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="howto-item">
+
+          <span>
+            02
+          </span>
+
+          <div>
+
+            <strong>
+              Hold kroppen på væggen
+            </strong>
+
+            <p>
+              Brug fødderne til støtte og undgå at falde.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="howto-item">
+
+          <span>
+            03
+          </span>
+
+          <div>
+
+            <strong>
+              Match toppen
+            </strong>
+
+            <p>
+              Begge hænder på TOP-grebet afslutter banen.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="howto-item">
+
+          <span>
+            04
+          </span>
+
+          <div>
+
+            <strong>
+              Jag leaderboardet
+            </strong>
+
+            <p>
+              Færrest moves vinder. Derefter falls og til sidst tid.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       SCRIPTS
+  ==================================================== -->
+
+  <script src="home.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase-config.js"></script>
+
+  <script src="online.js"></script>
+
+
+  <script>
+    (async () => {
+
+      try {
+
+        await window.DailyClimbOnline
+          ?.prepareGameRoute?.();
+
+      }
+
+      catch (error) {
+
+        console.warn(
+          "Online route kunne ikke hentes:",
+          error
+        );
+
+      }
+
+      finally {
+
+        const script =
+          document.createElement(
+            "script"
+          );
+
+        script.src =
+          "game.js";
+
+        document.body.appendChild(
+          script
+        );
+
+      }
+
+    })();
+  </script>
+
+
+</body>
+
+</html>

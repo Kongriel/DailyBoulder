@@ -1,0 +1,1451 @@
+:root {
+  color-scheme: dark;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --bg: #090d0d;
+
+  --panel: rgba(13, 17, 17, 0.97);
+
+  --cream: #f7f4ec;
+
+  --muted: rgba(247, 244, 236, 0.68);
+
+  --soft: rgba(247, 244, 236, 0.48);
+
+  --border: rgba(247, 244, 236, 0.16);
+
+  --border-strong: rgba(247, 244, 236, 0.26);
+
+  --lime: #d9ef72;
+
+  --danger: #f87171;
+
+  background: var(--bg);
+
+  color: var(--cream);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+
+  min-height: 100%;
+
+  background: var(--bg);
+}
+
+body {
+  min-height: 100dvh;
+
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.builder-background {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  opacity: 0.16;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(9, 13, 13, 0.98) 0%,
+
+      rgba(9, 13, 13, 0.91) 58%,
+
+      rgba(9, 13, 13, 0.78) 100%
+    ),
+    url("./daily-boulder-bg.png") center right / cover no-repeat;
+}
+
+/* =====================================================
+   APP
+===================================================== */
+
+.builder-app {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(1440px, calc(100% - 30px));
+
+  height: 100dvh;
+
+  margin: 0 auto;
+
+  padding: max(15px, env(safe-area-inset-top)) 0 max(15px, env(safe-area-inset-bottom));
+
+  display: grid;
+
+  grid-template-rows:
+    auto
+    minmax(0, 1fr);
+
+  gap: 13px;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.builder-header {
+  min-height: 56px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+}
+
+.builder-brand {
+  display: flex;
+
+  flex-direction: column;
+
+  text-decoration: none;
+}
+
+.builder-brand span {
+  color: rgba(247, 244, 236, 0.56);
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.25em;
+}
+
+.builder-brand strong {
+  margin-top: 4px;
+
+  color: var(--cream);
+
+  font-size: 24px;
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+.header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.header-actions > a,
+.header-actions > button {
+  min-height: 40px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0 13px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+
+  color: rgba(247, 244, 236, 0.82);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.04em;
+}
+
+.header-actions > a:hover,
+.header-actions > button:hover {
+  color: #fff;
+
+  border-color: var(--border-strong);
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.header-actions .test-btn {
+  color: #10140c;
+
+  border-color: var(--lime);
+
+  background: var(--lime);
+}
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.builder-layout {
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    330px;
+
+  gap: 11px;
+}
+
+/* =====================================================
+   WALL
+===================================================== */
+
+.wall-shell {
+  position: relative;
+
+  min-width: 0;
+
+  min-height: 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(247, 244, 236, 0.12);
+
+  border-radius: 16px;
+
+  background: #101719;
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+}
+
+#builderCanvas {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  touch-action: none;
+}
+
+.wall-top-label {
+  position: absolute;
+
+  top: 15px;
+
+  left: 17px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: rgba(247, 244, 236, 0.7);
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.14em;
+
+  pointer-events: none;
+}
+
+.wall-dot {
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 999px;
+
+  background: var(--lime);
+}
+
+.wall-info {
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 14px;
+
+  transform: translateX(-50%);
+
+  max-width: calc(100% - 24px);
+
+  padding: 9px 14px;
+
+  border: 1px solid rgba(247, 244, 236, 0.12);
+
+  border-radius: 999px;
+
+  color: rgba(255, 255, 255, 0.84);
+
+  background: rgba(5, 8, 8, 0.88);
+
+  backdrop-filter: blur(12px);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  pointer-events: none;
+}
+
+/* =====================================================
+   PANEL
+===================================================== */
+
+.editor-panel {
+  min-height: 0;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  padding: 16px;
+
+  border: 1px solid rgba(247, 244, 236, 0.14);
+
+  border-radius: 16px;
+
+  color: var(--cream);
+
+  background: var(--panel);
+
+  backdrop-filter: blur(18px);
+
+  scrollbar-width: thin;
+
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.panel-section {
+  padding: 19px 0;
+
+  border-bottom: 1px solid rgba(247, 244, 236, 0.08);
+}
+
+.panel-section:first-child {
+  padding-top: 2px;
+}
+
+.panel-title {
+  margin-bottom: 11px;
+
+  color: rgba(247, 244, 236, 0.75);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.11em;
+}
+
+.field-label {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin: 12px 0 7px;
+
+  color: rgba(247, 244, 236, 0.74);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.09em;
+}
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.text-input,
+.select-input {
+  width: 100%;
+
+  min-height: 43px;
+
+  padding: 0 12px;
+
+  border: 1px solid rgba(247, 244, 236, 0.19);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  color: #fff;
+
+  background: rgba(255, 255, 255, 0.075);
+
+  font-size: 14px;
+}
+
+.text-input:focus,
+.select-input:focus {
+  border-color: rgba(217, 239, 114, 0.68);
+
+  box-shadow: 0 0 0 2px rgba(217, 239, 114, 0.06);
+}
+
+.route-name-input {
+  min-height: 50px;
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.02em;
+}
+
+/* =====================================================
+   ADD HOLDS
+===================================================== */
+
+.hold-buttons {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 7px;
+}
+
+.hold-add {
+  min-height: 82px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  border: 1px solid rgba(247, 244, 236, 0.14);
+
+  border-radius: 11px;
+
+  color: #f7f4ec;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  font-size: 11px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.06em;
+
+  transition:
+    transform 0.14s ease,
+    border-color 0.14s ease,
+    background 0.14s ease;
+}
+
+.hold-add:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(217, 239, 114, 0.42);
+
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.hold-preview {
+  display: block;
+
+  width: 31px;
+
+  height: 22px;
+
+  background: #ef4444;
+
+  clip-path: polygon(5% 52%, 19% 12%, 49% 0%, 88% 18%, 100% 58%, 75% 100%, 21% 91%);
+}
+
+.hold-preview.sloper {
+  width: 36px;
+
+  height: 20px;
+
+  background: #8b5cf6;
+
+  clip-path: ellipse(50% 44% at 50% 52%);
+}
+
+.hold-preview.foot {
+  width: 34px;
+
+  height: 13px;
+
+  background: #22c55e;
+
+  clip-path: polygon(0 72%, 18% 5%, 88% 14%, 100% 70%, 62% 100%, 12% 94%);
+}
+
+/* =====================================================
+   MULTI SELECTION
+===================================================== */
+
+.selection-info {
+  margin: 13px 0 0;
+
+  padding: 11px 12px;
+
+  border: 1px solid rgba(217, 239, 114, 0.25);
+
+  border-radius: 9px;
+
+  color: var(--lime);
+
+  background: rgba(217, 239, 114, 0.06);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  line-height: 1.4;
+
+  letter-spacing: 0.04em;
+}
+
+/* =====================================================
+   SELECTED HOLD
+===================================================== */
+
+.selected-head {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 8px;
+}
+
+.selected-help {
+  color: rgba(247, 244, 236, 0.58);
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+.slider-field {
+  margin-top: 18px;
+}
+
+.slider-label {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.slider-label .field-label {
+  margin: 0;
+}
+
+.slider-label span {
+  color: rgba(247, 244, 236, 0.72);
+
+  font-size: 11px;
+
+  font-weight: 900;
+}
+
+input[type="range"] {
+  width: 100%;
+
+  margin: 10px 0 0;
+
+  accent-color: var(--lime);
+}
+
+/* =====================================================
+   START / TOP
+===================================================== */
+
+.start-block {
+  margin-top: 22px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid rgba(247, 244, 236, 0.08);
+}
+
+.assignment-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 5px;
+}
+
+.assign-btn {
+  min-height: 40px;
+
+  border: 1px solid rgba(247, 244, 236, 0.14);
+
+  border-radius: 8px;
+
+  color: rgba(247, 244, 236, 0.82);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  font-size: 12px;
+
+  font-weight: 900;
+}
+
+.assign-btn.active {
+  color: #10140c;
+
+  border-color: var(--lime);
+
+  background: var(--lime);
+}
+
+.top-btn {
+  width: 100%;
+
+  min-height: 43px;
+
+  margin-top: 7px;
+
+  border: 1px solid rgba(217, 239, 114, 0.28);
+
+  border-radius: 8px;
+
+  color: var(--lime);
+
+  background: rgba(217, 239, 114, 0.06);
+
+  font-size: 11px;
+
+  font-weight: 900;
+}
+
+.top-btn:hover {
+  color: #10140c;
+
+  border-color: var(--lime);
+
+  background: var(--lime);
+}
+
+/* =====================================================
+   ADVANCED
+===================================================== */
+
+.advanced-editor {
+  margin-top: 15px;
+
+  border: 1px solid rgba(247, 244, 236, 0.1);
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.advanced-editor summary {
+  min-height: 44px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 12px;
+
+  list-style: none;
+
+  color: rgba(247, 244, 236, 0.72);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+}
+
+.advanced-editor summary::-webkit-details-marker {
+  display: none;
+}
+
+.advanced-editor summary::after {
+  content: "+";
+
+  font-size: 17px;
+
+  color: rgba(247, 244, 236, 0.55);
+}
+
+.advanced-editor[open] summary::after {
+  content: "−";
+}
+
+.advanced-content {
+  padding: 0 12px 13px;
+}
+
+.advanced-title {
+  margin: 19px 0 9px;
+
+  color: rgba(247, 244, 236, 0.66);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.08em;
+}
+
+/* =====================================================
+   COLOR
+===================================================== */
+
+.color-picker {
+  width: 100%;
+
+  height: 40px;
+
+  padding: 2px;
+
+  border: 0;
+
+  background: transparent;
+}
+
+/* =====================================================
+   GRIP SIDES
+===================================================== */
+
+.grip-side-pad {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1.15fr
+    1fr;
+
+  grid-template-rows:
+    auto
+    auto
+    auto;
+
+  gap: 5px;
+}
+
+.grip-side-btn {
+  min-height: 35px;
+
+  border: 1px solid rgba(247, 244, 236, 0.14);
+
+  border-radius: 7px;
+
+  color: rgba(247, 244, 236, 0.68);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+.grip-side-btn.active {
+  color: #fff;
+
+  border-color: rgba(247, 244, 236, 0.46);
+
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.side-top {
+  grid-column: 2;
+
+  grid-row: 1;
+}
+
+.side-left {
+  grid-column: 1;
+
+  grid-row: 2;
+}
+
+.side-right {
+  grid-column: 3;
+
+  grid-row: 2;
+}
+
+.side-bottom {
+  grid-column: 2;
+
+  grid-row: 3;
+}
+
+.grip-side-core {
+  grid-column: 2;
+
+  grid-row: 2;
+
+  display: grid;
+
+  place-items: center;
+
+  min-height: 35px;
+
+  border: 1px solid rgba(247, 244, 236, 0.08);
+
+  border-radius: 8px;
+
+  color: rgba(247, 244, 236, 0.55);
+
+  background: rgba(255, 255, 255, 0.03);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+/* =====================================================
+   CAPACITY
+===================================================== */
+
+.capacity-box {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 6px;
+
+  margin-top: 17px;
+}
+
+.capacity-box > div {
+  padding: 11px;
+
+  border: 1px solid rgba(247, 244, 236, 0.09);
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.03);
+
+  text-align: center;
+}
+
+.capacity-box span {
+  display: block;
+
+  color: rgba(247, 244, 236, 0.58);
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.08em;
+}
+
+.capacity-box strong {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 15px;
+}
+
+.capacity-note {
+  margin: 8px 0 0;
+
+  color: rgba(247, 244, 236, 0.62);
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+.delete-btn {
+  width: 100%;
+
+  min-height: 48px;
+
+  margin-top: 16px;
+
+  border: 1px solid rgba(248, 113, 113, 0.58);
+
+  border-radius: 9px;
+
+  color: #fecaca;
+
+  background: rgba(239, 68, 68, 0.15);
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.04em;
+}
+
+.delete-btn:hover {
+  color: #fff;
+
+  border-color: #f87171;
+
+  background: rgba(239, 68, 68, 0.32);
+}
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.builder-message {
+  margin: 13px 0 0;
+
+  padding: 11px 12px;
+
+  border: 1px solid rgba(247, 244, 236, 0.09);
+
+  border-radius: 9px;
+
+  color: rgba(247, 244, 236, 0.72);
+
+  background: rgba(255, 255, 255, 0.035);
+
+  font-size: 12px;
+
+  line-height: 1.45;
+}
+
+.builder-message.error {
+  color: #fecaca;
+
+  border-color: rgba(248, 113, 113, 0.25);
+
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.builder-message.success {
+  color: var(--lime);
+
+  border-color: rgba(217, 239, 114, 0.2);
+
+  background: rgba(217, 239, 114, 0.05);
+}
+
+/* =====================================================
+   LIBRARY
+===================================================== */
+
+.library-heading {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-bottom: 9px;
+}
+
+.library-heading .panel-title {
+  margin: 0;
+}
+
+.new-route-btn {
+  min-height: 30px;
+
+  padding: 0 9px;
+
+  border: 1px solid rgba(247, 244, 236, 0.14);
+
+  border-radius: 7px;
+
+  color: rgba(247, 244, 236, 0.82);
+
+  background: rgba(255, 255, 255, 0.045);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+.route-library {
+  display: grid;
+
+  gap: 7px;
+}
+
+.library-empty {
+  padding: 12px;
+
+  border-radius: 8px;
+
+  color: rgba(247, 244, 236, 0.56);
+
+  background: rgba(255, 255, 255, 0.03);
+
+  font-size: 10px;
+
+  line-height: 1.45;
+
+  text-align: center;
+}
+
+/* =====================================================
+   ROUTE CARDS
+===================================================== */
+
+.route-card {
+  padding: 11px;
+
+  border: 1px solid rgba(247, 244, 236, 0.09);
+
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.route-card.current {
+  border-color: rgba(217, 239, 114, 0.34);
+}
+
+.route-card-top {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 8px;
+}
+
+.route-card-name {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: rgba(247, 244, 236, 0.9);
+
+  font-size: 11px;
+
+  font-weight: 900;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+.route-card-count {
+  flex-shrink: 0;
+
+  color: rgba(247, 244, 236, 0.48);
+
+  font-size: 9px;
+}
+
+.route-card-best {
+  margin-top: 5px;
+
+  color: rgba(247, 244, 236, 0.6);
+
+  font-size: 10px;
+}
+
+.route-card-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    auto;
+
+  gap: 5px;
+
+  margin-top: 9px;
+}
+
+.route-card-actions button {
+  min-height: 31px;
+
+  border: 1px solid rgba(247, 244, 236, 0.1);
+
+  border-radius: 7px;
+
+  color: rgba(247, 244, 236, 0.78);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+.route-card-actions .library-play {
+  color: var(--lime);
+
+  border-color: rgba(217, 239, 114, 0.18);
+}
+
+.route-card-actions .library-delete {
+  color: #fca5a5;
+}
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.route-status {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 5px;
+}
+
+.route-status > div {
+  padding: 9px 4px;
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  text-align: center;
+}
+
+.route-status span {
+  display: block;
+
+  color: rgba(247, 244, 236, 0.55);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+.route-status strong {
+  display: block;
+
+  margin-top: 2px;
+
+  overflow: hidden;
+
+  font-size: 9px;
+
+  text-overflow: ellipsis;
+}
+
+.route-status .top-status {
+  grid-column: 1 / -1;
+}
+
+/* =====================================================
+   ONLINE BUILDER
+===================================================== */
+
+.publish-route-btn {
+  border-color: rgba(217, 239, 114, 0.28) !important;
+
+  color: var(--lime) !important;
+
+  background: rgba(217, 239, 114, 0.06) !important;
+}
+
+.admin-link {
+  color: rgba(247, 244, 236, 0.7);
+
+  text-decoration: none;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.06em;
+}
+
+.online-profile {
+  margin-bottom: 10px;
+}
+
+.online-profile-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    auto;
+
+  gap: 6px;
+}
+
+.online-profile-row button {
+  border: 0;
+
+  border-radius: 8px;
+
+  padding: 0 11px;
+
+  color: #10140c;
+
+  background: var(--lime);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+.online-setup-message {
+  margin-bottom: 10px;
+
+  padding: 11px;
+
+  border: 1px solid rgba(245, 158, 11, 0.25);
+
+  border-radius: 9px;
+
+  color: #fde68a;
+
+  background: rgba(245, 158, 11, 0.08);
+
+  font-size: 10px;
+
+  line-height: 1.45;
+}
+
+.admin-daily-controls {
+  margin-top: 10px;
+
+  padding: 11px;
+
+  border: 1px solid rgba(217, 239, 114, 0.18);
+
+  border-radius: 9px;
+
+  background: rgba(217, 239, 114, 0.05);
+}
+
+.admin-badge {
+  color: var(--lime);
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.08em;
+}
+
+.online-route-card .route-online-meta {
+  margin-top: 5px;
+
+  color: rgba(247, 244, 236, 0.58);
+
+  font-size: 9px;
+}
+
+.online-route-card .daily-online-btn {
+  grid-column: 1 / -1;
+
+  color: var(--lime);
+
+  border-color: rgba(217, 239, 114, 0.2);
+
+  background: rgba(217, 239, 114, 0.05);
+}
+
+.online-route-card.current-online {
+  border-color: rgba(217, 239, 114, 0.34);
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 950px) {
+  .builder-layout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      290px;
+  }
+
+  .builder-app {
+    width: calc(100% - 18px);
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 720px) {
+  body {
+    overflow: auto;
+  }
+
+  .builder-app {
+    width: calc(100% - 12px);
+
+    height: auto;
+
+    min-height: 100dvh;
+  }
+
+  .builder-header {
+    align-items: flex-start;
+  }
+
+  .builder-brand span {
+    font-size: 7px;
+  }
+
+  .builder-brand strong {
+    font-size: 19px;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+  }
+
+  .header-actions > a,
+  .header-actions > button {
+    min-height: 34px;
+
+    padding: 0 8px;
+
+    font-size: 8px;
+  }
+
+  .builder-layout {
+    height: auto;
+
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .wall-shell {
+    height: 67dvh;
+
+    min-height: 500px;
+  }
+
+  .editor-panel {
+    overflow: visible;
+
+    padding: 14px;
+  }
+
+  .wall-info {
+    bottom: 9px;
+
+    font-size: 9px;
+  }
+
+  .hold-add {
+    min-height: 72px;
+  }
+}
+
+/* =====================================================
+   SIZE + CAPACITY
+===================================================== */
+
+.size-field {
+  margin-bottom: 21px;
+}
+
+.size-capacity {
+  margin-top: 11px;
+}
+
+.size-capacity > div {
+  min-height: 52px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-color: rgba(247, 244, 236, 0.13);
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.size-capacity span {
+  color: rgba(247, 244, 236, 0.62);
+
+  font-size: 9px;
+}
+
+.size-capacity strong {
+  color: #fff;
+
+  font-size: 17px;
+}
